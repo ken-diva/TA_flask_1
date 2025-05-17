@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>40622110009</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 600px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Pilih tempat</h1>
+  <div id="map"></div>
+</body>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // Buat peta
+  const map = L.map('map', {
+    crs: L.CRS.Simple,
+    minZoom: -1
+  });
+
+  // Ukuran asli gambarnya (misal: 2000 x 1200 px)
+  const w = 2000, h = 1200;
+  const imageUrl = "{{ url_for('static', filename='images/map.png') }}";
+  const imageBounds = [[0, 0], [h, w]];
+  L.imageOverlay(imageUrl, imageBounds).addTo(map);
+  map.fitBounds(imageBounds);
+
+  // Data ruangan yang bisa dipilih
+  const rooms = [
+    { name: 'Ruang A', coord: [300, 500] },
+    { name: 'Ruang B', coord: [600, 900] },
+    { name: 'Ruang C', coord: [800, 1300] }
+  ];
+
+  rooms.forEach(room => {
+    const marker = L.marker(room.coord).addTo(map);
+    marker.bindPopup(`<b>${room.name}</b><br><button onclick="chooseRoom('${room.name}')">Pilih Ruangan</button>`);
+  });
+
+  function chooseRoom(name) {
+    alert('Anda memilih ' + name);
+    // Kirim ke backend jika perlu
+  }
+
+  // Nonaktifkan klik di luar marker
+  map.on('click', function (e) {
+    // Tidak melakukan apapun
+  });
+
+  // Klik untuk memilih lokasi
+  //map.on('click', function (e) {
+  //const y = e.latlng.lat.toFixed(2);
+  //const x = e.latlng.lng.toFixed(2);
+  //alert(`Koordinat dipilih: [${x}, ${y}]`);
+  // Kirim ke server via fetch POST kalau mau
+  //});
+</script>
+
+</html>
