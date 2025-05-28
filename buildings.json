@@ -1,0 +1,14 @@
+[
+	{
+		"name": "Gedung Bangkit",
+		"lat": -6.974,
+		"lng": 107.63,
+		"description": "Gedung untuk Fakultas Teknik Elektro."
+	},
+	{
+		"name": "Gedung D",
+		"lat": -6.975,
+		"lng": 107.6315,
+		"description": "Gedung untuk Fakultas Informatika."
+	}
+]
